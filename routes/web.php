@@ -15,10 +15,13 @@
 
 use Laravel\Lumen\Routing\Router;
 
-$router
-    ->get('/', function () use ($router) {
-        return $router->app->version();
-    })
-    ->get('/track.php', '\App\Adapters\Http\EventsController@trackEvent')
-    ->get('/sessions', '\App\Adapters\Http\EventsController@listSessions')
-    ->get('/statistics', '\App\Adapters\Http\StatisticsController@missionStatistics');
+$router->group(['prefix' => '/api/'], function ($router) {
+    $router
+        ->get('/', function () use ($router) {
+            return $router->app->version();
+        })
+        ->get('/track.php', '\App\Adapters\Http\EventsController@trackEvent')
+        ->get('/sessions', '\App\Adapters\Http\EventsController@listSessions')
+        ->get('/statistics', '\App\Adapters\Http\StatisticsController@missionStatistics');
+});
+
