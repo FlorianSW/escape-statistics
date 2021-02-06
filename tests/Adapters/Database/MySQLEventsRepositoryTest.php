@@ -3,18 +3,21 @@
 namespace App\Tests\Adapters\Database;
 
 use App\Adapters\Database\MySQLEventsRepository;
+use App\Domain\Endings;
 use App\Domain\EventsRepository;
 use App\Domain\EventType;
-use App\Tests\Domain\EventTest;
+use App\Tests\EventTracking;
 use App\Tests\TestCase;
 
 class MySQLEventsRepositoryTest extends TestCase
 {
+    use EventTracking;
+
     private EventsRepository $repo;
 
     public function testPersistsEndMissionEvent()
     {
-        $event = EventTest::makeEvent();
+        $event = $this->makeEvent();
 
         $this->repo->save($event);
 
@@ -25,12 +28,23 @@ class MySQLEventsRepositoryTest extends TestCase
 
     public function testFindSessionsReturnsEndMissionsOnly()
     {
-        $this->repo->save(EventTest::makeEvent());
-        $this->repo->save(EventTest::makeEvent(type: EventType::START_MISSION));
+        $this->repo->save($this->makeEvent());
+        $this->repo->save($this->makeEvent(type: EventType::START_MISSION));
 
         $events = $this->repo->findSessions();
         $this->assertCount(1, $events);
         $this->assertEquals(EventType::END_MISSION, $events[0]->type);
+    }
+
+    public function testCountByEnding()
+    {
+        $this->repo->save($this->makeEvent());
+        $this->repo->save($this->makeEvent(end: Endings::MISSING_IN_ACTION));
+
+        $this->assertEquals(1, $this->repo->countByEnding(Endings::FAILED));
+        $this->assertEquals(1, $this->repo->countByEnding(Endings::MISSING_IN_ACTION));
+        $this->assertEquals(0, $this->repo->countByEnding(Endings::SUCCESS));
+        $this->assertEquals(0, $this->repo->countByEnding(Endings::CIVILIANS_KILLED));
     }
 
     protected function setUp(): void

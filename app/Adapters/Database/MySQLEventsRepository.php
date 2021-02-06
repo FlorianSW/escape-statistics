@@ -106,6 +106,11 @@ class MySQLEventsRepository implements EventsRepository
             ->toArray();
     }
 
+    public function countByEnding(string $ending): int
+    {
+        return $this->database->table('sessions')->where('ending', $ending)->count();
+    }
+
     public function clear(): void {
         $this->database->statement('TRUNCATE sessions;');
     }

@@ -20,4 +20,5 @@ $router
         return $router->app->version();
     })
     ->get('/track.php', '\App\Adapters\Http\EventsController@trackEvent')
-    ->get('/sessions', '\App\Adapters\Http\EventsController@listSessions');
+    ->get('/sessions', '\App\Adapters\Http\EventsController@listSessions')
+    ->get('/statistics', '\App\Adapters\Http\StatisticsController@missionStatistics');

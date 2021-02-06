@@ -2,9 +2,12 @@
 
 namespace App\Domain;
 
-interface EventsRepository {
+interface EventsRepository
+{
     function save(Event $event): Event;
 
     /** @return Event[] */
     function findSessions(): array;
+
+    function countByEnding(string $ending): int;
 }
