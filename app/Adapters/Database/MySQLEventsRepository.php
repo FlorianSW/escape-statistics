@@ -33,7 +33,8 @@ class MySQLEventsRepository implements EventsRepository
                 `play_time` int(11) NOT NULL,
                 `release_variation` varchar(32) NOT NULL DEFAULT \'Unknown\',
                 `server_name` varchar(255) NOT NULL,
-                INDEX types (type)
+                INDEX types (type),
+                INDEX endings (ending)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         ');
     }
