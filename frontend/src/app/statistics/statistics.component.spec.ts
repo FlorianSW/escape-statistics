@@ -1,11 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { StatisticsComponent } from './statistics.component';
+import {StatisticsComponent} from './statistics.component';
 import {StatisticsModule} from "./statistics.module";
 import {ActivatedRoute, Data} from "@angular/router";
 import {Subject} from "rxjs";
 import {MissionStatistics} from "../mission-statistics";
-import {By} from "@angular/platform-browser";
 
 describe('StatisticsComponent', () => {
   let fixture: ComponentFixture<StatisticsComponent>;

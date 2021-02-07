@@ -1,9 +1,8 @@
 import {TestBed} from "@angular/core/testing";
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {LeaderboardService} from "./leaderboard.service";
-import {MissionStatistics} from "../mission-statistics";
-import DoneCallback = jest.DoneCallback;
 import {MissionLeaderboard} from "../mission-leaderboard";
+import DoneCallback = jest.DoneCallback;
 
 describe('LeaderboardService', () => {
   let service: LeaderboardService;
