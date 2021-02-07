@@ -1,0 +1,31 @@
+version: '3.7'
+
+x-deploy: &deploy
+  stop_grace_period: 5s
+  deploy:
+    replicas: 2
+    update_config:
+      parallelism: 1
+      failure_action: rollback
+
+networks:
+  webserver_default:
+    external: true
+
+services:
+  escape-statistics-frontend:
+    <<: *deploy
+    image: droidwiki/escape-statistics-frontend
+    networks:
+      - webserver_default
+  escape-statistics-backend:
+    <<: *deploy
+    image: droidwiki/escape-statistics-backend
+    networks:
+      - webserver_default
+    environment:
+      DB_HOST: 172.16.0.1
+      DB_DATABASE: escape_statistics
+      DB_USERNAME: #DB_USERNAME#
+      DB_PASSWORD: #DB_PASSWORD#
+      LOG_CHANNEL: stderr

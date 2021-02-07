@@ -92,3 +92,50 @@ jobs:
       - put: backend-image
         params:
           build: src/backend
+  - name: deploy
+    serial: true
+    plan:
+      - in_parallel:
+        - get: src
+          passed: [backend, frontend]
+          trigger: true
+        - get: backend-image
+          passed: [backend]
+          trigger: true
+          params:
+            skip_download: true
+        - get: frontend-image
+          passed: [frontend]
+          trigger: true
+          params:
+            skip_download: true
+      - task: deploy stack
+        params:
+          DB_USERNAME: ((database.username))
+          DB_PASSWORD: ((database.password))
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: lgatica/openssh-client
+              tag: latest
+          inputs:
+            - name: src
+          run:
+            path: sh
+            args:
+              - -ec
+              - |
+                echo "((deployment.private_key))" > /tmp/ssh-key
+                chmod 600 /tmp/ssh-key
+                eval `ssh-agent -s`
+                ssh-add /tmp/ssh-key
+
+                cd src/ci/
+
+                sed -i "s/#DB_USERNAME#/$DB_USERNAME/g" docker-compose.yml
+                sed -i "s/#DB_USERNAME#/$DB_PASSWORD/g" docker-compose.yml
+
+                ssh -o StrictHostKeyChecking=no ((deployment.username))@((docker.manager_host)) \
+                  "sudo docker stack deploy -c - escape-statistics" < docker-compose.yml
