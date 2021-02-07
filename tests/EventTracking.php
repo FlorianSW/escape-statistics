@@ -15,9 +15,10 @@ trait EventTracking
         string $end = 'end1',
         string $map = 'Altis',
         string $setting = 'BIS CSAT vs. NATO',
+        int $playTime = 235
     )
     {
-        $this->call('GET', '/track.php', [
+        $this->call('GET', '/api/track.php', [
             'event' => $event,
             'map' => $map,
             'mod' => $setting,
@@ -29,12 +30,12 @@ trait EventTracking
             't3' => '0',
             't4' => '0',
             'server' => 'go2tech.de',
-            'time' => '235',
+            'time' => $playTime,
             'release' => $release,
         ]);
     }
 
-    public function makeEvent(string $type = EventType::END_MISSION, string $end = Endings::FAILED): Event {
+    public function makeEvent(string $type = EventType::END_MISSION, string $end = Endings::FAILED, int $playTime = 235): Event {
         return new Event(
             $type,
             date('Y-m-d H:i:s'),
@@ -47,7 +48,7 @@ trait EventTracking
             false,
             false,
             false,
-            235,
+            $playTime,
             Variation::Mission,
             'Unknown'
         );

@@ -2,6 +2,7 @@
 
 namespace App\Tests;
 
+use App\Domain\Endings;
 use App\Domain\Event;
 use App\Domain\EventsRepository;
 use App\Domain\EventType;
@@ -47,5 +48,29 @@ class InMemoryEventsRepository implements EventsRepository
         return count(array_filter($this->events, function (Event $event) use($ending) {
             return $event->ending === $ending;
         }));
+    }
+
+    public function shortestEscape(): ?Event
+    {
+        $successFullEscapes = array_filter($this->events, function ($event) {
+            return $event->ending === Endings::SUCCESS;
+        });
+        usort($successFullEscapes, function (Event $a, Event $b) {
+            return $a->playTime - $b->playTime;
+        });
+
+        return $successFullEscapes[0];
+    }
+
+    public function longestEscape(): ?Event
+    {
+        $successFullEscapes = array_filter($this->events, function ($event) {
+            return $event->ending === Endings::SUCCESS;
+        });
+        usort($successFullEscapes, function (Event $a, Event $b) {
+            return $b->playTime - $a->playTime;
+        });
+
+        return $successFullEscapes[0];
     }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Adapters\Database;
 
+use App\Domain\Endings;
 use App\Domain\Event;
 use App\Domain\EventsRepository;
 use App\Domain\EventType;
+use Closure;
 use Illuminate\Database\DatabaseManager;
 use stdClass;
 
@@ -101,9 +103,7 @@ class MySQLEventsRepository implements EventsRepository
             ->table('sessions')
             ->get()
             ->where('type', '=', EventType::END_MISSION)
-            ->map(function (stdClass $value) {
-                return $this->toEvent($value);
-            })
+            ->map(Closure::fromCallable([$this, 'toEvent']))
             ->toArray();
     }
 
@@ -112,7 +112,29 @@ class MySQLEventsRepository implements EventsRepository
         return $this->database->table('sessions')->where('ending', $ending)->count();
     }
 
-    public function clear(): void {
+    public function longestEscape(): ?Event
+    {
+        return $this->byPlaytimeSortedBy('desc');
+    }
+
+    public function shortestEscape(): ?Event
+    {
+        return $this->byPlaytimeSortedBy();
+    }
+
+    private function byPlaytimeSortedBy(string $sort = 'asc'): ?Event {
+        $events = $this->database
+            ->table('sessions')
+            ->where('ending', Endings::SUCCESS)
+            ->orderBy('play_time', $sort)
+            ->limit(1)
+            ->get()
+            ->map(Closure::fromCallable([$this, 'toEvent']));
+        return count($events) === 1 ? $events[0] : null;
+    }
+
+    public function clear(): void
+    {
         $this->database->statement('TRUNCATE sessions;');
     }
 }

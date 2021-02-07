@@ -18,7 +18,7 @@ class EventsController extends Controller {
         $this->repo = $repository;
     }
 
-    public function listSessions(): JsonResponse
+    public function listMatches(): JsonResponse
     {
         return response()->json($this->repo->findSessions());
     }

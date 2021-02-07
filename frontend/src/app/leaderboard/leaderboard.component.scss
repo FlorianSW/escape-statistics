@@ -1,0 +1,28 @@
+$gap: 54px;
+
+section {
+  max-width: 1024px;
+  margin: 24px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap;
+
+  > div {
+    flex-basis: calc(50% - #{$gap});
+  }
+
+  a {
+    text-decoration: none;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 764px) {
+  section {
+    margin: 0 24px;
+
+    > div {
+      flex-basis: calc(100% - #{$gap});
+    }
+  }
+}

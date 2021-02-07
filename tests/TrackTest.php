@@ -39,7 +39,7 @@ class TrackTest extends TestCase
     {
         $this->trackSample();
 
-        $this->json('GET', '/sessions')->seeJson([
+        $this->json('GET', '/api/matches')->seeJson([
             'island' => 'Altis',
             'setting' => 'BIS CSAT vs. NATO',
             'missionVersion' => '1.11',

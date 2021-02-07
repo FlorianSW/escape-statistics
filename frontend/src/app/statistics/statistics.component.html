@@ -1,0 +1,32 @@
+<div class="opener">
+  <div class="border">
+    <div class="statistic" *ngIf="statistics">
+      <span>{{statistics.failed + statistics.succeeded + statistics.civilianKilled + statistics.missingInAction}}</span>
+      <span>Total escape rounds</span>
+    </div>
+  </div>
+  <div class="border">
+    <div class="statistic" *ngIf="statistics">
+      <span>{{statistics.succeeded}}</span>
+      <span>Successful escapes</span>
+    </div>
+  </div>
+  <div class="border">
+    <div class="statistic" *ngIf="statistics">
+      <span>{{statistics.failed}}</span>
+      <span>Failed escapes</span>
+    </div>
+  </div>
+  <div class="border">
+    <div class="statistic" *ngIf="statistics">
+      <span>{{statistics.missingInAction}}</span>
+      <span>Rounds with missing comrades</span>
+    </div>
+  </div>
+  <div class="border">
+    <div class="statistic" *ngIf="statistics">
+      <span>{{statistics.civilianKilled}}</span>
+      <span>Rounds where civilians were harmed</span>
+    </div>
+  </div>
+</div>

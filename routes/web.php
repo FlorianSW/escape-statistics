@@ -21,7 +21,7 @@ $router->group(['prefix' => '/api/'], function ($router) {
             return $router->app->version();
         })
         ->get('/track.php', '\App\Adapters\Http\EventsController@trackEvent')
-        ->get('/sessions', '\App\Adapters\Http\EventsController@listSessions')
-        ->get('/statistics', '\App\Adapters\Http\StatisticsController@missionStatistics');
+        ->get('/matches', '\App\Adapters\Http\EventsController@listMatches')
+        ->get('/matches/statistics', '\App\Adapters\Http\StatisticsController@missionStatistics')
+        ->get('/matches/leaderboard', '\App\Adapters\Http\StatisticsController@leaderboard');
 });
-

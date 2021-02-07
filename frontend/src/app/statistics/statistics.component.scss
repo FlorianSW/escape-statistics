@@ -1,0 +1,58 @@
+$statisticsSize: 124px;
+$statisticsBorder: 7px;
+
+.opener {
+  margin-top: 0 - ($statisticsSize + (2 * $statisticsBorder)) / 2;
+  margin-bottom: ($statisticsSize + (2 * $statisticsBorder)) / 2 + 48px;
+  position: relative;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  .border {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $statisticsSize + (2 * $statisticsBorder);
+    height: $statisticsSize + (2 * $statisticsBorder);
+    border-radius: 100%;
+    background: linear-gradient(0deg, #616161 50%, transparent 50%), linear-gradient(90deg, #616161 50%, #33475d 50%);
+    margin: 0 auto;
+    z-index: 2;
+  }
+
+  .statistic {
+    $border: 7px;
+    height: $statisticsSize;
+    width: $statisticsSize;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #616161;
+    color: white;
+
+    span {
+      height: 50%;
+    }
+
+    > span:first-child {
+      font-weight: bold;
+      font-size: 26px;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    > span:last-child {
+      font-size: 14px;
+      word-break: break-word;
+      text-align: center;
+      margin-top: 8px;
+      padding: 0 8px;
+    }
+  }
+}

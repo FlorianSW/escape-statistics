@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Domain\Endings;
 use App\Domain\EventsRepository;
+use App\Domain\MissionLeaderboard;
 use App\Domain\MissionStatistics;
 
 class StatisticsService
@@ -21,6 +22,13 @@ class StatisticsService
             $this->repository->countByEnding(Endings::SUCCESS),
             $this->repository->countByEnding(Endings::MISSING_IN_ACTION),
             $this->repository->countByEnding(Endings::CIVILIANS_KILLED),
+        );
+    }
+
+    public function leaderboard(): MissionLeaderboard {
+        return new MissionLeaderboard(
+            $this->repository->shortestEscape(),
+            $this->repository->longestEscape()
         );
     }
 }

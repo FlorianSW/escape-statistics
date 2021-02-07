@@ -47,6 +47,34 @@ class MySQLEventsRepositoryTest extends TestCase
         $this->assertEquals(0, $this->repo->countByEnding(Endings::CIVILIANS_KILLED));
     }
 
+    public function testLongestEscape()
+    {
+        $this->repo->save($this->makeEvent(end: Endings::SUCCESS, playTime: 100));
+        $this->repo->save($this->makeEvent(end: Endings::SUCCESS, playTime: 50));
+
+        $event = $this->repo->longestEscape();
+        $this->assertEquals(100, $event->playTime);
+    }
+
+    public function testEmptyLongestEscape()
+    {
+        $this->assertNull($this->repo->longestEscape());
+    }
+
+    public function testShortestEscape()
+    {
+        $this->repo->save($this->makeEvent(end: Endings::SUCCESS, playTime: 100));
+        $this->repo->save($this->makeEvent(end: Endings::SUCCESS, playTime: 50));
+
+        $event = $this->repo->shortestEscape();
+        $this->assertEquals(50, $event->playTime);
+    }
+
+    public function testEmptyShortestEscape()
+    {
+        $this->assertNull($this->repo->shortestEscape());
+    }
+
     protected function setUp(): void
     {
         parent::setUp();

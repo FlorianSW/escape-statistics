@@ -17,4 +17,8 @@ class StatisticsController extends Controller {
     public function missionStatistics(): JsonResponse {
         return response()->json($this->service->missionStatistics());
     }
+
+    public function leaderboard(): JsonResponse {
+        return response()->json($this->service->leaderboard());
+    }
 }
