@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  database:
+    image: mysql:5.6
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: statistics
+      MYSQL_USER: root
+      MYSQL_PASSWORD: strong-password
+      MYSQL_ROOT_PASSWORD: strong-password
+  frontend:
+    build:
+      context: frontend
+  backend:
+    build:
+      context: backend
+    environment:
+      DB_HOST: database
+      DB_DATABASE: statistics
+      DB_USERNAME: root
+      DB_PASSWORD: strong-password
+  proxy:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - "./localhost.conf:/etc/nginx/conf.d/default.conf"
