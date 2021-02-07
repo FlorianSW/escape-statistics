@@ -1,0 +1,94 @@
+resources:
+- name: src
+  type: git
+  check_every: 24h
+  webhook_token: ((github.webhook_token))
+  icon: github
+  source:
+    uri: https://github.com/FlorianSW/escape-statistics.git
+    branch: main
+
+- name: frontend-image
+  type: docker-image
+  check_every: 24h
+  icon: docker
+  source:
+    username: ((docker.username))
+    password: ((docker.access_token))
+    repository: droidwiki/escape-statistics-frontend
+
+- name: backend-image
+  type: docker-image
+  check_every: 24h
+  icon: docker
+  source:
+    username: ((docker.username))
+    password: ((docker.access_token))
+    repository: droidwiki/escape-statistics-backend
+
+jobs:
+  - name: frontend
+    serial: true
+    plan:
+      - get: src
+        trigger: true
+      - task: test
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: node
+              tag: 14-alpine
+          inputs:
+            - name: src
+          run:
+            path: sh
+            args:
+              - -ec
+              - |
+                export TERM=dumb
+                export NG_CLI_ANALYTICS=ci
+                build_root=$(pwd)
+                cd src/frontend/
+
+                npm ci --no-progress --quiet
+                npm run test
+      - put: frontend-image
+        params:
+          build: src/frontend
+
+  - name: backend
+    serial: true
+    plan:
+      - get: src
+        trigger: true
+#      - task: test
+#        config:
+#          platform: linux
+#          image_resource:
+#            type: registry-image
+#            source:
+#              repository: composer
+#          inputs:
+#            - name: src
+#          run:
+#            path: sh
+#            args:
+#              - -ec
+#              - |
+#                export TERM=dumb
+#                apk --no-cache --update --no-progress -q add mariadb
+#                function stop_daemons {
+#                  rc-service mariadb stop
+#                }
+#                trap stop_daemons EXIT
+#                rc-service mariadb start
+#                build_root=$(pwd)
+#                cd src/backend/
+#
+#                composer update --no-progress --no-ansi
+#                ./vendor/bin/phpunit
+      - put: backend-image
+        params:
+          build: src/backend
