@@ -15,7 +15,7 @@ services:
     build:
       context: .
     volumes:
-    - "../:/opt/project"
+    - "../backend/:/opt/project/backend"
 
   webserver:
     image: nginx:latest
