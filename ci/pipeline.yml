@@ -124,7 +124,7 @@ jobs:
                 cd src/ci/
 
                 sed -i "s/#DB_USERNAME#/$DB_USERNAME/g" docker-compose.yml
-                sed -i "s/#DB_USERNAME#/$DB_PASSWORD/g" docker-compose.yml
+                sed -i "s/#DB_PASSWORD#/$DB_PASSWORD/g" docker-compose.yml
 
                 ssh -o StrictHostKeyChecking=no ((deployment.username))@((docker.manager_host)) \
                   "sudo deploy-escape-statistics" < docker-compose.yml
