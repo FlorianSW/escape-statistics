@@ -18,7 +18,7 @@ trait EventTracking
         int $playTime = 235
     )
     {
-        $this->call('GET', '/api/track.php', [
+        $this->call('GET', '/api/track', [
             'event' => $event,
             'map' => $map,
             'mod' => $setting,

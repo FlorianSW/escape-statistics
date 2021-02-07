@@ -20,7 +20,7 @@ $router->group(['prefix' => '/api/'], function ($router) {
         ->get('/', function () use ($router) {
             return $router->app->version();
         })
-        ->get('/track.php', '\App\Adapters\Http\EventsController@trackEvent')
+        ->get('/track', '\App\Adapters\Http\EventsController@trackEvent')
         ->get('/matches', '\App\Adapters\Http\EventsController@listMatches')
         ->get('/matches/statistics', '\App\Adapters\Http\StatisticsController@missionStatistics')
         ->get('/matches/leaderboard', '\App\Adapters\Http\StatisticsController@leaderboard');

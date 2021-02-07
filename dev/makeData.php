@@ -1,11 +1,11 @@
 <?php
 
-$baseUrl = 'http://webserver/api/track.php?';
+$baseUrl = 'http://webserver/api/track?';
 
 $data = [
     ['1.9', 'Isles of Cumbrae', 'CUP RU vs BAF', 4, 'end1', true, false, false, false, 2541, 'Mission', 'go2tech.de'],
     ['1.9', 'Isles of Cumbrae', 'CUP RU vs BAF', 10, 'end2', true, false, true, true, 685, 'Mission', ''],
-    ['1.9', 'Altis', 'BIS CSAT vs. NATO', 6, 'end4', true, true, false, false, 120, 'Mission', ''],
+    ['1.9', 'Altis', 'BIS CSAT vs. NATO', 6, 'end4', true, true, false, false, 120, 'Mission', 'go2tech.de'],
     ['1.10', 'Isles of Cumbrae', 'CUP RU vs BAF', 1, 'end1', false, false, false, false, 3254, 'Mission', ''],
     ['1.9', 'Isles of Cumbrae', 'CUP RU vs BAF', 2, 'end3', false, false, false, false, 9754, 'Mission', ''],
     ['1.10', 'Chernarus', 'RHS US vs RU', 8, 'end1', true, false, false, false, 654, 'Mission', ''],
