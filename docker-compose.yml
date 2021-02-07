@@ -20,6 +20,7 @@ services:
       DB_DATABASE: statistics
       DB_USERNAME: root
       DB_PASSWORD: strong-password
+      LOG_CHANNEL: stderr
   proxy:
     image: nginx:alpine
     ports:

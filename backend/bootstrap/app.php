@@ -87,6 +87,7 @@ $app->configure('app');
 */
 
 $app->register(App\Providers\EventsRepositoryProvider::class);
+$app->register(App\Providers\StatisticsServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
