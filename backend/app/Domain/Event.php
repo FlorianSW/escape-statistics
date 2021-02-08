@@ -13,14 +13,29 @@ class Event
     public string $missionVersion;
     public string $island;
     public string $setting;
-    public int $playerCount;
-    public string $ending;
-    public Tasks $tasks;
-    public int $playTime;
+    public ?int $playerCount;
+    public ?string $ending;
+    public ?Tasks $tasks;
+    public ?int $playTime;
     public string $releaseVariation;
     public string $serverName;
 
-    public function __construct(string $type, string $time, string $missionVersion, string $island, string $setting, int $playerCount, string $ending, bool $prisonEscaped, bool $mapFound, bool $comCenterHacked, bool $exfiltrated, int $playTime, string $releaseVariant, string $serverName)
+    public function __construct(
+        string $type,
+        string $time,
+        string $missionVersion,
+        string $island,
+        string $setting,
+        ?int $playerCount,
+        ?string $ending,
+        ?bool $prisonEscaped,
+        ?bool $mapFound,
+        ?bool $comCenterHacked,
+        ?bool $exfiltrated,
+        ?int $playTime,
+        string $releaseVariant,
+        string $serverName
+    )
     {
         $this->type = $type;
         $this->time = $time;
@@ -28,7 +43,9 @@ class Event
         $this->island = $island;
         $this->setting = $setting;
         $this->playerCount = $playerCount;
-        $this->tasks = new Tasks($prisonEscaped, $mapFound, $comCenterHacked, $exfiltrated);
+        if ($prisonEscaped !== null && $mapFound !== null && $comCenterHacked !== null && $exfiltrated !== null) {
+            $this->tasks = new Tasks($prisonEscaped, $mapFound, $comCenterHacked, $exfiltrated);
+        }
         $this->playTime = $playTime;
         $this->releaseVariation = $releaseVariant;
         $this->serverName = $serverName;
@@ -46,8 +63,11 @@ class Event
         $this->assertValidEnumValue($this->ending, Endings::class, 'ending invalid');
     }
 
-    private function assertValidEnumValue(string $needle, string $class, $error): void
+    private function assertValidEnumValue(?string $needle, string $class, $error): void
     {
+        if ($needle === null) {
+            return;
+        }
         $class = new ReflectionClass($class);
         if (!in_array($needle, array_values($class->getConstants()))) {
             throw new InvalidArgumentException($error);

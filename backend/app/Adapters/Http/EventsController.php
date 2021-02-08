@@ -26,20 +26,20 @@ class EventsController extends Controller {
     public function trackEvent(Request $request): Response {
         try {
             $event = new Event(
-                $request->query('event'),
+                $this->requireQuery($request, 'event'),
                 date('Y-m-d H:i:s'),
-                $request->query('version'),
-                $request->query('map'),
-                $request->query('mod'),
+                $this->requireQuery($request, 'version'),
+                $this->requireQuery($request, 'map'),
+                $this->requireQuery($request, 'mod'),
                 $request->query('players'),
                 $request->query('end'),
-                $request->query('t1',),
+                $request->query('t1'),
                 $request->query('t2'),
                 $request->query('t3'),
                 $request->query('t4'),
                 $request->query('time'),
-                $request->query('release'),
-                $request->query('server', '')
+                $this->requireQuery($request, 'release'),
+                $this->requireQuery($request, 'server', '')
             );
         } catch (InvalidArgumentException $e) {
             return response($e->getMessage(), 400);
@@ -48,5 +48,14 @@ class EventsController extends Controller {
         $this->repo->save($event);
 
         return new Response('', 200);
+    }
+
+    private function requireQuery(Request $request, $key, ?string $default = null): null|array|string
+    {
+        $value = $request->query($key, $default);
+        if ($value === null) {
+            throw new InvalidArgumentException('You are not ArmA, are you? :) (' . $key . ', ' . $request->query($key, $default) . ')');
+        }
+        return $value;
     }
 }

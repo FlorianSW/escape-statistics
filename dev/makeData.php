@@ -1,6 +1,6 @@
 <?php
 
-$baseUrl = 'http://webserver/api/track?';
+$baseUrl = 'https://escape.go2tech.de/api/track?';
 
 $data = [
     ['1.9', 'Isles of Cumbrae', 'CUP RU vs BAF', 4, 'end1', true, false, false, false, 2541, 'Mission', 'go2tech.de'],

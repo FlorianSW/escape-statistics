@@ -11,6 +11,7 @@ class TrackTest extends TestCase
     {
         $this->trackSample();
 
+        var_dump($this->response->content());
         $this->response->assertStatus(200);
     }
 
@@ -33,6 +34,27 @@ class TrackTest extends TestCase
         $this->trackSample(end: 'unrecognized');
 
         $this->response->assertStatus(400);
+    }
+
+    public function testMissingParameterBadRequest()
+    {
+        $this->get('/api/track');
+
+        $this->response->assertStatus(400);
+    }
+
+    public function testHandlesStartMissionEvent() {
+        $this->trackSample(
+            event: 'startmission',
+            end: null,
+            playTime: null,
+            prisonEscaped: null,
+            mapFound: null,
+            comCenterHacked: null,
+            exfiltrated: null
+        );
+
+        $this->response->assertStatus(200);
     }
 
     public function testRespondsEvent()
