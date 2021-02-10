@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {MissionStatistics} from "../mission-statistics";
 import {HttpClient} from "@angular/common/http";
 import {MissionLeaderboard} from "../mission-leaderboard";
 

@@ -11,6 +11,37 @@ section {
     flex-basis: calc(50% - #{$gap});
   }
 
+  .hidden {
+    visibility: hidden;
+  }
+
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    &:before {
+      content: ' ';
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      border: 2px solid white;
+      border-top: 2px solid #353535;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
   a {
     text-decoration: none;
     display: inline-block;

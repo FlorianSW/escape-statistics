@@ -1,10 +1,57 @@
 $statisticsSize: 124px;
 $statisticsBorder: 7px;
+$loadingHeight: 2px;
+
+.loading {
+  width: 100%;
+  height: $loadingHeight;
+
+  .slider {
+    position: absolute;
+    width: 100%;
+    height: $loadingHeight;
+    overflow: hidden;
+  }
+
+  .break {
+    position: absolute;
+    background: #353535;
+    width: 6px;
+    height: $loadingHeight;
+  }
+
+  .dot1 {
+    animation: loading 3s infinite;
+  }
+
+  .dot2 {
+    animation: loading 3s 0.5s infinite;
+  }
+
+  .dot3 {
+    animation: loading 3s 1s infinite;
+  }
+
+  @keyframes loading {
+    from {
+      left: 0;
+    }
+    to {
+      left: 100%;
+    }
+  }
+}
 
 .opener {
-  margin-top: 0 - ($statisticsSize + (2 * $statisticsBorder)) / 2;
+  $marginTop: 0 - ($statisticsSize + (2 * $statisticsBorder)) / 2;
+  margin-top: $marginTop;
   margin-bottom: ($statisticsSize + (2 * $statisticsBorder)) / 2 + 48px;
   position: relative;
+
+  &.hidden {
+    visibility: hidden;
+    margin-top: $marginTop - $loadingHeight;
+  }
 
   display: flex;
   flex-wrap: wrap;

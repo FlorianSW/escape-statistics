@@ -1,4 +1,11 @@
-<div class="opener">
+<div class="loading" *ngIf="!statistics">
+  <div class="slider">
+    <div class="break dot1"></div>
+    <div class="break dot2"></div>
+    <div class="break dot3"></div>
+  </div>
+</div>
+<div class="opener" [class.hidden]="!statistics">
   <div class="border">
     <div class="statistic" *ngIf="statistics">
       <span>{{statistics.failed + statistics.succeeded + statistics.civilianKilled + statistics.missingInAction}}</span>

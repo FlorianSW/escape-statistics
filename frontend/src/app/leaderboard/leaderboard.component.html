@@ -16,65 +16,76 @@
       </button>
     </a>
   </div>
-  <div *ngIf="leaderboard && leaderboard.shortestEscape">
-    <h1>Shortest Escape</h1>
-    At {{leaderboard.shortestEscape.time | date}} we were informed, that a group
-    of {{leaderboard.shortestEscape.playerCount}} soldiers successfully escaped {{leaderboard.shortestEscape.island}}.
-    They were
-    held on the island for {{toMinutes(leaderboard.shortestEscape.playTime)}} minutes only, marking the shortest escape
-    time of one of our teams.
-    <br><br>
-    After escaping the prison, our highly trained team
-    <ng-container *ngIf="leaderboard.shortestEscape.tasks.mapFound">managed to find a map to orientate themself on the
-      island.
-    </ng-container>
-    <ng-container *ngIf="!leaderboard.shortestEscape.tasks.mapFound">managed to escape the island without finding a
-      map.
-    </ng-container>
-    <br><br>
-    <ng-container *ngIf="leaderboard.shortestEscape.tasks.comCenterHacked">
-      Using the hacked communication terminal of the enemy forces, we got a long-awaited message from the team, making
-      it possible to negotiate and find an appropriate extraction point.
-    </ng-container>
-    <ng-container *ngIf="!leaderboard.shortestEscape.tasks.comCenterHacked">
-      As the team was unable to reach and hack a communication center of the enemy team, we sent an extraction team to
-      an extraction point, which we agreed on upfront the mission. After a long time of waiting, the extraction team
-      found our escaped soldiers and returned them safely.
-    </ng-container>
+  <div>
+    <div *ngIf="!leaderboard || !leaderboard.longestEscape" class="loading"></div>
+    <div [class.hidden]="!leaderboard || !leaderboard.shortestEscape">
+      <h1>Shortest Escape</h1>
+      At {{leaderboard?.shortestEscape?.time | date}} we were informed, that a group
+      of {{leaderboard?.shortestEscape?.playerCount}} soldiers successfully
+      escaped {{leaderboard?.shortestEscape?.island}}.
+      They were
+      held on the island for {{toMinutes(leaderboard?.shortestEscape?.playTime)}} minutes only, marking the shortest
+      escape
+      time of one of our teams.
+      <br><br>
+      After escaping the prison, our highly trained team
+      <ng-container *ngIf="leaderboard?.shortestEscape?.tasks?.mapFound">managed to find a map to orientate themself on
+        the
+        island.
+      </ng-container>
+      <ng-container *ngIf="!leaderboard?.shortestEscape?.tasks?.mapFound">managed to escape the island without finding a
+        map.
+      </ng-container>
+      <br><br>
+      <ng-container *ngIf="leaderboard?.shortestEscape?.tasks?.comCenterHacked">
+        Using the hacked communication terminal of the enemy forces, we got a long-awaited message from the team, making
+        it possible to negotiate and find an appropriate extraction point.
+      </ng-container>
+      <ng-container *ngIf="!leaderboard?.shortestEscape?.tasks?.comCenterHacked">
+        As the team was unable to reach and hack a communication center of the enemy team, we sent an extraction team to
+        an extraction point, which we agreed on upfront the mission. After a long time of waiting, the extraction team
+        found our escaped soldiers and returned them safely.
+      </ng-container>
 
-    <br><br><br>
-    <ng-container *ngIf="leaderboard.shortestEscape.serverName">This escape was held on the
-      server: {{leaderboard.shortestEscape.serverName}}.
-    </ng-container>
+      <br><br><br>
+      <ng-container *ngIf="leaderboard?.shortestEscape?.serverName">This escape was held on the
+        server: {{leaderboard?.shortestEscape?.serverName}}.
+      </ng-container>
+    </div>
   </div>
-  <div *ngIf="leaderboard && leaderboard.longestEscape">
-    <h1>Longest Escape</h1>
-    Apart from the shortest escape, there's also a team of {{leaderboard.longestEscape.playerCount}} soldiers in our
-    records. They successfully escaped {{leaderboard.longestEscape.island}} at {{leaderboard.longestEscape.time | date}}
-    . The overall mission took {{toMinutes(leaderboard.longestEscape.playTime)}} minutes. The debriefing is still
-    pending, however, we assume the team took the advantage to gather more information of the island.
-    <br><br>
-    After escaping the prison, our highly trained team
-    <ng-container *ngIf="leaderboard.longestEscape.tasks.mapFound">managed to find a map to orientate themself on the
-      island.
-    </ng-container>
-    <ng-container *ngIf="!leaderboard.longestEscape.tasks.mapFound">managed to escape the island without finding a
-      map.
-    </ng-container>
-    <br><br>
-    <ng-container *ngIf="leaderboard.longestEscape.tasks.comCenterHacked">
-      Using the hacked communication terminal of the enemy forces, we got a long-awaited message from the team, making
-      it possible to negotiate and find an appropriate extraction point.
-    </ng-container>
-    <ng-container *ngIf="!leaderboard.longestEscape.tasks.comCenterHacked">
-      As the team was unable to reach and hack a communication center of the enemy team, we sent an extraction team to
-      an extraction point, which we agreed on upfront the mission. After a long time of waiting, the extraction team
-      found our escaped soldiers and returned them safely.
-    </ng-container>
+  <div>
+    <div *ngIf="!leaderboard || !leaderboard.longestEscape" class="loading"></div>
+    <div [class.hidden]="!leaderboard || !leaderboard.longestEscape">
+      <h1>Longest Escape</h1>
+      Apart from the shortest escape, there's also a team of {{leaderboard?.longestEscape?.playerCount}} soldiers in our
+      records. They successfully escaped {{leaderboard?.longestEscape?.island}}
+      at {{leaderboard?.longestEscape?.time | date}}
+      . The overall mission took {{toMinutes(leaderboard?.longestEscape?.playTime)}} minutes. The debriefing is still
+      pending, however, we assume the team took the advantage to gather more information of the island.
+      <br><br>
+      After escaping the prison, our highly trained team
+      <ng-container *ngIf="leaderboard?.longestEscape?.tasks?.mapFound">managed to find a map to orientate themself on
+        the
+        island.
+      </ng-container>
+      <ng-container *ngIf="!leaderboard?.longestEscape?.tasks?.mapFound">managed to escape the island without finding a
+        map.
+      </ng-container>
+      <br><br>
+      <ng-container *ngIf="leaderboard?.longestEscape?.tasks?.comCenterHacked">
+        Using the hacked communication terminal of the enemy forces, we got a long-awaited message from the team, making
+        it possible to negotiate and find an appropriate extraction point.
+      </ng-container>
+      <ng-container *ngIf="!leaderboard?.longestEscape?.tasks?.comCenterHacked">
+        As the team was unable to reach and hack a communication center of the enemy team, we sent an extraction team to
+        an extraction point, which we agreed on upfront the mission. After a long time of waiting, the extraction team
+        found our escaped soldiers and returned them safely.
+      </ng-container>
 
-    <br><br><br>
-    <ng-container *ngIf="leaderboard.longestEscape.serverName">This escape was held on the
-      server: {{leaderboard.longestEscape.serverName}}.
-    </ng-container>
+      <br><br><br>
+      <ng-container *ngIf="leaderboard?.longestEscape?.serverName">This escape was held on the
+        server: {{leaderboard?.longestEscape?.serverName}}.
+      </ng-container>
+    </div>
   </div>
 </section>

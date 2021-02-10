@@ -1,18 +1,21 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute, Data} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
 import {MissionStatistics} from "../mission-statistics";
+import {StatisticsService} from "./statistics.service";
 
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.scss']
 })
-export class StatisticsComponent {
+export class StatisticsComponent implements OnInit {
   public statistics: MissionStatistics | undefined;
 
-  constructor(route: ActivatedRoute) {
-    route.data.subscribe((data: Data) => {
-      this.statistics = data.missionStatistics;
+  constructor(private service: StatisticsService) {
+  }
+
+  ngOnInit() {
+    this.service.missionStatistics().subscribe((stats) => {
+      this.statistics = stats;
     });
   }
 }
